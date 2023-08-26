@@ -1,0 +1,6 @@
+streamlit
+openai
+streamlit-chat
+python-dotenv
+protobuf~=3.19.0
+altair==4.0
