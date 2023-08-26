@@ -7,6 +7,8 @@ Start by cloning the project.
 git clone https://github.com/AlbertoHurtado/the-disrupters.git
 cd the-disrupters
 ```
+Copy the .env.example file and rename the copy to .env and add all the necessary values.
+
 Then create a python virtual environment using conda and instal the necessary packages.
 
 ```
