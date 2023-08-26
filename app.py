@@ -2,6 +2,7 @@ import openai
 import os
 import streamlit as st
 import src.gpt as gpt
+import src.llama as llama
 from src.sidebar import sidebar
 from streamlit_chat import message
 
@@ -58,13 +59,8 @@ if clear_button:
 def generate_response(prompt):
     st.session_state['messages'].append({"role": "user", "content": prompt})
 
-    response = gpt.generate_response_gpt(model, st.session_state)
-
-    # completion = openai.ChatCompletion.create(
-    #     model=model,
-    #     messages=st.session_state['messages']
-    # )
-    # response = completion.choices[0].message.content
+    # response = gpt.generate_response_gpt(model, st.session_state)
+    response = llama.generate_response_llama(prompt)
 
     st.session_state['messages'].append({"role": "assistant", "content": response})
 
