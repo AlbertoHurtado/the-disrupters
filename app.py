@@ -1,6 +1,7 @@
 import openai
 import os
 import streamlit as st
+import src.gpt as gpt
 from src.sidebar import sidebar
 from streamlit_chat import message
 
@@ -11,10 +12,6 @@ load_dotenv()
 # Setting page title and header
 st.set_page_config(page_title="AVA", page_icon=":robot_face:")
 st.markdown("<h1 style='text-align: center;'>AVA - a totally harmless chatbot 😬</h1>", unsafe_allow_html=True)
-
-
-# Set org ID and API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialise session state variables
 if 'generated' not in st.session_state:
@@ -61,18 +58,18 @@ if clear_button:
 def generate_response(prompt):
     st.session_state['messages'].append({"role": "user", "content": prompt})
 
-    completion = openai.ChatCompletion.create(
-        model=model,
-        messages=st.session_state['messages']
-    )
-    response = completion.choices[0].message.content
+    response = gpt.generate_response_gpt(model, st.session_state)
+
+    # completion = openai.ChatCompletion.create(
+    #     model=model,
+    #     messages=st.session_state['messages']
+    # )
+    # response = completion.choices[0].message.content
+
     st.session_state['messages'].append({"role": "assistant", "content": response})
 
     # print(st.session_state['messages'])
-    total_tokens = completion.usage.total_tokens
-    prompt_tokens = completion.usage.prompt_tokens
-    completion_tokens = completion.usage.completion_tokens
-    return response, total_tokens, prompt_tokens, completion_tokens
+    return response
 
 
 # container for chat history
@@ -86,19 +83,13 @@ with container:
         submit_button = st.form_submit_button(label='Send')
 
     if submit_button and user_input:
-        output, total_tokens, prompt_tokens, completion_tokens = generate_response(user_input)
+        output = generate_response(user_input)
         st.session_state['past'].append(user_input)
         st.session_state['generated'].append(output)
         st.session_state['model_name'].append(model_name)
-        st.session_state['total_tokens'].append(total_tokens)
 
         # from https://openai.com/pricing#language-models
-        
-        cost = total_tokens * 0.002 / 1000
-        
-        st.session_state['cost'].append(cost)
-        st.session_state['total_cost'] += cost
-
+    
 if st.session_state['generated']:
     with response_container:
         for i in range(len(st.session_state['generated'])):
