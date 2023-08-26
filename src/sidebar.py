@@ -7,10 +7,12 @@ def sidebar():
     with st.sidebar:
         st.markdown("# About")
         st.markdown(
-            "📖 This App is template of lanchain-streamlit-docker example"
+            "📖 This App was created for LabLabAi's Llama 2 Hackathon with Clarifai."
         )
-        st.markdown("Made by [DR. AMJAD RAZA](https://www.linkedin.com/in/amjadraza/)")
-        st.markdown("Credits for Template [hwchase17](https://github.com/hwchase17/langchain-streamlit-template)")
+        st.markdown(
+            "This conversational agent take a user's description of their ideal home and finds the best results in our database and returns a detailed description of the property."
+        )
+        st.markdown("Made by [Alberto Hurtado](https://github.com/AlbertoHurtado) & [João Pedro Soares](https://github.com/jpssoares).")
         st.markdown("---")
 
         faq()

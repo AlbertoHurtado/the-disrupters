@@ -6,19 +6,16 @@ def faq():
     st.markdown(
         """
 # FAQ
-## How to use App Template?
-This is a basic template to set up Langchain Demo App with Docker
+## How to use App?
+Just describe the type of property you are looking for:
+"I am looking for a house in Vilamoura with 3 bedrooms and 3 bathrooms"
 
 
-## What Libraries are being use?
-Basic Setup is using langchain, streamlit and openai.
+## What tech stack is being uses?
+The ui was built in Python using the Streamlit library. For the conversational part of the app, we are using Meta's Llama 2 through a workflow created on the Clarifai platform. We also created a demo database with information about several properties using MongoDB Atlas, but we intend on integrating a more mainstream API from a well know real estate portal, such as Idealista.
 
 ## How to test the APP?
-Set up the OpenAI API keys and run the App
-
-## Disclaimer?
-This is a template App, when using with openai_api key, you will be charged a nominal fee depending
-on number of prompts etc.
+Follow the [Github](https://github.com/AlbertoHurtado/the-disrupters) README.md to run the project locally.
 
 """
     )
