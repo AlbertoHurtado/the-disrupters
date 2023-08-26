@@ -50,6 +50,8 @@ def generate_response_llama(msg=RAW_TEXT):
         raise Exception(f"Post model outputs failed, status: {post_model_outputs_response.status.description}")
 
     # Since we have one input, one output will exist here
-    output = post_model_outputs_response.outputs[0].data.text.raw
+    output = post_model_outputs_response.outputs[0]
+    print(output)
+    output = output.data.text.raw
     print(output)
     return output
