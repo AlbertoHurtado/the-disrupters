@@ -8,6 +8,7 @@ def faq():
 # FAQ
 ## How to use App?
 Just describe the type of property you are looking for:
+
 "I am looking for a house in Vilamoura with 3 bedrooms and 3 bathrooms"
 
 

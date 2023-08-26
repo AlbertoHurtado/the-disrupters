@@ -5,6 +5,7 @@ from src.faq import faq
 
 def sidebar():
     with st.sidebar:
+        st.markdown("# RECA - a real estate conversational agent 🏘️")
         st.markdown("# About")
         st.markdown(
             "📖 This App was created for LabLabAi's Llama 2 Hackathon with Clarifai."
