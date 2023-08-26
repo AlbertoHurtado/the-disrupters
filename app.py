@@ -1,6 +1,7 @@
 import openai
 import os
 import streamlit as st
+from src.sidebar import sidebar
 from streamlit_chat import message
 
 from dotenv import load_dotenv
@@ -10,6 +11,7 @@ load_dotenv()
 # Setting page title and header
 st.set_page_config(page_title="AVA", page_icon=":robot_face:")
 st.markdown("<h1 style='text-align: center;'>AVA - a totally harmless chatbot 😬</h1>", unsafe_allow_html=True)
+
 
 # Set org ID and API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -33,17 +35,12 @@ if 'total_cost' not in st.session_state:
     st.session_state['total_cost'] = 0.0
 
 # Sidebar - let user choose model, show total cost of current conversation, and let user clear the current conversation
-st.sidebar.title("Sidebar")
-model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4"))
-counter_placeholder = st.sidebar.empty()
-counter_placeholder.write(f"Total cost of this conversation: ${st.session_state['total_cost']:.5f}")
+sidebar()
 clear_button = st.sidebar.button("Clear Conversation", key="clear")
 
 # Map model names to OpenAI model IDs
-if model_name == "GPT-3.5":
-    model = "gpt-3.5-turbo"
-else:
-    model = "gpt-4"
+model_name = "GPT-3.5"
+model = "gpt-3.5-turbo"
 
 # reset everything
 if clear_button:
@@ -57,7 +54,7 @@ if clear_button:
     st.session_state['cost'] = []
     st.session_state['total_cost'] = 0.0
     st.session_state['total_tokens'] = []
-    counter_placeholder.write(f"Total cost of this conversation: ${st.session_state['total_cost']:.5f}")
+    
 
 
 # generate a response
@@ -96,11 +93,9 @@ with container:
         st.session_state['total_tokens'].append(total_tokens)
 
         # from https://openai.com/pricing#language-models
-        if model_name == "GPT-3.5":
-            cost = total_tokens * 0.002 / 1000
-        else:
-            cost = (prompt_tokens * 0.03 + completion_tokens * 0.06) / 1000
-
+        
+        cost = total_tokens * 0.002 / 1000
+        
         st.session_state['cost'].append(cost)
         st.session_state['total_cost'] += cost
 
@@ -109,6 +104,3 @@ if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state["past"][i], is_user=True, key=str(i) + '_user')
             message(st.session_state["generated"][i], key=str(i))
-            st.write(
-                f"Model used: {st.session_state['model_name'][i]}; Number of tokens: {st.session_state['total_tokens'][i]}; Cost: ${st.session_state['cost'][i]:.5f}")
-            counter_placeholder.write(f"Total cost of this conversation: ${st.session_state['total_cost']:.5f}")
