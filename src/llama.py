@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Your PAT (Personal Access Token) can be found in the portal under Authentification
-PAT = os.getenv("CLARIFY_PERSONAL_ACESS_TOKEN")
+PAT = os.getenv("CLARIFY_PERSONAL_ACCESS_TOKEN")
 # Specify the correct user_id/app_id pairings
 # Since you're making inferences outside your app's scope
 USER_ID = 'tuchohackathon'
