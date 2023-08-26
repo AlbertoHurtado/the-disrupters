@@ -1,5 +1,6 @@
 import streamlit as st
-import src.llama as llama
+
+import src.controller as ctrl
 from src.sidebar import sidebar
 from streamlit_chat import message
 
@@ -41,9 +42,7 @@ if clear_button:
 
 # generate a response
 def generate_response(prompt):
-    # response = gpt.generate_response_gpt(model, st.session_state)
-    response = llama.generate_response_llama(prompt)
-
+    response = ctrl.generate_response(prompt)
     return response
 
 
