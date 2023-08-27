@@ -1,5 +1,6 @@
 import src.llama as llama
 import src.gpt as gpt
+import src.propertyFinder as propertyFinder
 
 def get_intent_from_message(prompt):
     return gpt.get_intent_gpt(prompt)
@@ -11,7 +12,7 @@ def generate_response(prompt):
     # print(intent)
 
     if intent == "user_search_properties":
-        response = llama.generate_response_llama(prompt)
+        response = propertyFinder.suggestProperties(prompt)
     elif intent == "user_neutral_out_of_scope":
         response = "Sorry, I can't help with that... I am a chatbot focused only on giving you recomendations on properties that we have in our database."
     else:
