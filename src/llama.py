@@ -11,7 +11,7 @@ PAT = os.getenv("CLARIFY_PERSONAL_ACCESS_TOKEN")
 USER_ID = "tuchohackathon"
 APP_ID = "RECA-user-intent"
 # Change these to whatever model and text URL you want to use
-WORKFLOW_ID = "user-intent-workflow"
+WORKFLOW_ID = "extract-desired-property-data-from-user-input"
 # The index of the workflow block we want to use as output
 WORKFLOW_INDEX = 1
 
@@ -26,7 +26,7 @@ stub = service_pb2_grpc.V2Stub(channel)
 metadata = (("authorization", "Key " + PAT),)
 
 def get_intent_llama(msg):
-    return generate_response_llama_using_workflow(msg, "workflow-93ed31").lower()
+    return generate_response_llama_using_workflow(msg, "workflow-user-intent-general-chatbot-behavior").lower()
 
 def generate_response_llama(msg):
     userDataObject = resources_pb2.UserAppIDSet(user_id='meta', app_id='Llama-2')
