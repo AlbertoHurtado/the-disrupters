@@ -25,6 +25,8 @@ stub = service_pb2_grpc.V2Stub(channel)
 
 metadata = (("authorization", "Key " + PAT),)
 
+def get_intent_llama(msg):
+    return generate_response_llama_using_workflow(msg, "workflow-93ed31").lower()
 
 def generate_response_llama(msg):
     userDataObject = resources_pb2.UserAppIDSet(user_id='meta', app_id='Llama-2')
@@ -55,13 +57,13 @@ def generate_response_llama(msg):
     # print(output)
     return output.data.text.raw
 
-def generate_response_llama_using_workflow(msg):
+def generate_response_llama_using_workflow(msg, workflow = WORKFLOW_ID):
     userDataObject = resources_pb2.UserAppIDSet(user_id=USER_ID, app_id=APP_ID)
 
     post_workflow_results_response = stub.PostWorkflowResults(
         service_pb2.PostWorkflowResultsRequest(
             user_app_id=userDataObject,
-            workflow_id=WORKFLOW_ID,
+            workflow_id=workflow,
             inputs=[
                 resources_pb2.Input(
                     data=resources_pb2.Data(text=resources_pb2.Text(raw=msg))

@@ -33,6 +33,7 @@ user_neutral_greeting
 user_neutral_goodbye
 user_neutral_compliment
 user_search_properties
+user_get_next_property
 user_display_property_images
 user_neutral_out_of_scope
 

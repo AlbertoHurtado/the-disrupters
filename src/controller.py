@@ -6,7 +6,8 @@ propertiesFound = []
 current_property_idx = 0
 
 def get_intent_from_message(prompt):
-    return gpt.get_intent_gpt(prompt)
+    # return gpt.get_intent_gpt(prompt)
+    return llama.get_intent_llama(prompt)
 
 def handle_properties():
     global propertiesFound, current_property_idx
@@ -47,14 +48,15 @@ def generate_response(prompt):
     # First we get the user intent
     # We use GPT-3.5 for this because its faster
     intent = get_intent_from_message(prompt)
+    print(intent)
 
-    if intent == "user_search_properties":
+    if "user_search_properties" in intent:
         response, propertiesFound = propertyFinder.suggestProperties(prompt)
         response += " " + handle_properties()
         result = intent, response, None
-    elif intent == "user_display_property_images":
+    elif "user_display_property_images" in intent:
         result = intent, "Here are some photos of the property:", get_property_images()
-    elif intent == "user_neutral_out_of_scope":
+    elif "user_neutral_out_of_scope" in intent:
         result = intent, "Sorry, I can't help with that... I am a chatbot focused only on giving you recomendations on properties that we have in our database.", None
     else:
         result = intent, gpt.get_gpt_answer(prompt), None
