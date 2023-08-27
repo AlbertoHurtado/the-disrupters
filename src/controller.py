@@ -59,8 +59,8 @@ def generate_response(prompt):
 
     if "user_search_properties" in intent:
         response, propertiesFound = propertyFinder.suggestProperties(prompt)
-
-        response += " " + handle_properties()
+        if(propertiesFound):
+            response += " " + handle_properties()
         result = intent, response, None
     elif "user_display_property_images" in intent:
         result = intent, "Here are some photos of the property:", get_property_images()
