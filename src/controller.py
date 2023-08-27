@@ -40,7 +40,14 @@ def get_property_images():
     current_property = properties_found[current_property_idx]
     images = current_property['Images']
     return images
-    
+
+def get_property_description():
+    global propertiesFound, current_property_idx
+    current_property = propertiesFound[current_property_idx]
+    description = current_property['description']
+    gptifiedDescription = gpt.get_gpt_answer("Given this description: [DESC]"+ description + "[/DESC]. Summarize this description into less than 200 characters, to make the user want to buy this porperty.")
+    return gptifiedDescription
+
 
 def generate_response(prompt):
     global properties_found, current_property_idx
@@ -70,6 +77,8 @@ def generate_response(prompt):
             result = intent, response, None
     elif "user_display_property_images" in intent:
         result = intent, "Here are some photos of the property:", get_property_images()
+    elif "user_requests_property_description" in intent:
+        result = intent, get_property_description(), None
     elif "user_neutral_out_of_scope" in intent:
         result = intent, "Sorry, I can't help with that... I am a chatbot focused only on giving you recomendations on properties that we have in our database.", None
     else:

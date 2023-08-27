@@ -35,6 +35,7 @@ user_neutral_compliment
 user_search_properties
 user_get_next_property
 user_display_property_images
+user_requests_property_description
 user_neutral_out_of_scope
 
 What would be the right intent for this input:
