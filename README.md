@@ -17,6 +17,10 @@ conda activate hackathon
 pip install -r requirements.txt
 ```
 
+Then, for the image carousel to work, install the node packages inside `frontend` directory : `npm i`
+
+Then, build the node modules : `npm run build`
+
 Then run the app.
 ```
 streamlit run app.py

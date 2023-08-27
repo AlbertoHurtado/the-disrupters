@@ -15,9 +15,15 @@ def suggestProperties(prompt):
     print(propertiesFound)
     # TODO improve db connection management and implement error handling
     db.close()
-    links = [item['Link'] for item in propertiesFound]
 
-    # TODO add some more options to the responses, we can call gpt 3 or llama
-    response = "I have found these properties which I think you will love: " + ", ".join(links)  if(links) else "I have not found any property matching your criteria"
+    count = len(propertiesFound)
 
-    return response
+    if count == 0:
+        response = "I have not found any property matching your criteria"
+    else:
+        response = f"I have found {count} properties that match your criteria."
+        
+    # links = [item['Link'] for item in propertiesFound]
+    # response = "I have found these properties which I think you will love: " + ", ".join(links)  if(links) else "I have not found any property matching your criteria"
+
+    return response, propertiesFound

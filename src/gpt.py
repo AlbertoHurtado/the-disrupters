@@ -32,6 +32,7 @@ I am building an intent detector for a chatbot that help users find real estate 
 user_neutral_greeting
 user_neutral_goodbye
 user_search_properties
+user_display_property_images
 user_neutral_out_of_scope
 
 What would be the right intent for this input:
