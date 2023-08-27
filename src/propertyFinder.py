@@ -4,7 +4,7 @@ import json
 
 def suggestProperties(prompt):
     # TODO check if is a valid json
-    stringifiedJson = llama.generate_response_llama(prompt)
+    stringifiedJson = llama.generate_response_llama_using_workflow(prompt)
     query = json.loads(stringifiedJson)
     print(query)
     # TODO check if it is null what happens

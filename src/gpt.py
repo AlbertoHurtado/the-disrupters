@@ -31,6 +31,7 @@ get_intent_prompt_gpt = """
 I am building an intent detector for a chatbot that help users find real estate offerings. Here are the possible options for the intent:
 user_neutral_greeting
 user_neutral_goodbye
+user_neutral_compliment
 user_search_properties
 user_display_property_images
 user_neutral_out_of_scope
