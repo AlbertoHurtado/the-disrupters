@@ -70,7 +70,7 @@ with container:
         st.session_state['generated'].append(output)
 
         # Display images if necessary
-        if intent == "user_display_property_images":
+        if "user_display_property_images" in intent:
             imageCarouselComponent = display_carousel(images)
     
 if st.session_state['generated']:
