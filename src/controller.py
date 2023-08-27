@@ -42,8 +42,8 @@ def get_property_images():
     return images
 
 def get_property_description():
-    global propertiesFound, current_property_idx
-    current_property = propertiesFound[current_property_idx]
+    global properties_found, current_property_idx
+    current_property = properties_found[current_property_idx]
     description = current_property['description']
     gptifiedDescription = gpt.get_gpt_answer("Given this description: [DESC]"+ description + "[/DESC]. Summarize this description into less than 200 characters, to make the user want to buy this porperty.")
     return gptifiedDescription
