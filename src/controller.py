@@ -2,7 +2,7 @@ import src.llama as llama
 import src.gpt as gpt
 import src.propertyFinder as propertyFinder
 
-propertiesFound = []
+properties_found = []
 current_property_idx = 0
 
 def get_intent_from_message(prompt):
@@ -10,8 +10,8 @@ def get_intent_from_message(prompt):
     return llama.get_intent_llama(prompt)
 
 def handle_properties():
-    global propertiesFound, current_property_idx
-    current_property = propertiesFound[current_property_idx]
+    global properties_found, current_property_idx
+    current_property = properties_found[current_property_idx]
 
     response = f"Here is the one of the properties: {current_property['Title']}."
 
@@ -36,14 +36,14 @@ def handle_properties():
     return response
 
 def get_property_images():
-    global propertiesFound, current_property_idx
-    current_property = propertiesFound[current_property_idx]
+    global properties_found, current_property_idx
+    current_property = properties_found[current_property_idx]
     images = current_property['Images']
     return images
     
 
 def generate_response(prompt):
-    global propertiesFound
+    global properties_found, current_property_idx
 
     # First we get the user intent
     # We use GPT-3.5 for this because its faster
@@ -51,9 +51,23 @@ def generate_response(prompt):
     print(intent)
 
     if "user_search_properties" in intent:
-        response, propertiesFound = propertyFinder.suggestProperties(prompt)
-        response += " " + handle_properties()
-        result = intent, response, None
+        response, properties_found = propertyFinder.suggestProperties(prompt)
+        current_property_idx = 0
+        if len(properties_found) <= 0:
+            result = intent, "Sorry, but there are no properties that fit your search.", None
+        else:
+            response += " " + handle_properties()
+            result = intent, response, None
+    elif "user_get_next_property" in intent:
+        current_property_idx += 1
+        print(current_property_idx)
+        properties_left = len(properties_found) - current_property_idx
+        if properties_left <= 0:
+            result = intent, "Sorry, but there are no more properties that fit your search.", None
+        else:
+            response = f"There are {properties_left} properties left."
+            response += " " + handle_properties()
+            result = intent, response, None
     elif "user_display_property_images" in intent:
         result = intent, "Here are some photos of the property:", get_property_images()
     elif "user_neutral_out_of_scope" in intent:
